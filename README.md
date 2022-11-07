@@ -5,6 +5,7 @@ To run the program, compile and execute the main.c file
 
 # Input
 The input is taken from input.txt file<br>
+
 1st line: Dimensions - d<br>
 2nd line: Number of neighbours to find - K<br>
 3rd line: Number of input points of d dimension - number_points<br>
