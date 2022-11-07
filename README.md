@@ -21,7 +21,7 @@ For the given input file:-<br>
 Given the number of dimensions - 4<br>
 Number of nearest neighbours to find- 10<br>
 Number of data points given - 10000<br>
-The data point around which neighbours to find - {689 7890 55 909}<br>
+The data point around which neighbours to find - {689-7890-55-909}<br>
 
 Output on terminal:-<br>
 
