@@ -5,6 +5,9 @@
 #include <string.h>
 #include<limits.h>
 
+// DIMENSION IS K
+// X IS NO OF NEAREST WE WANT TO FIND
+
 struct Node_Queue 
 // Making a structure which creates priority queue
 {
@@ -35,8 +38,9 @@ void enqueue(int array[], int dist, int k)
     // Inserting the array and distance as priority to the queue
 }
 
-//finding the index of the max element in the queue
+
 int max_index(int x,int k)
+//finding the index of the max element in the queue
 {
     int largest = 0;
     for (int i = 1; i < x; i++)
@@ -47,25 +51,25 @@ int max_index(int x,int k)
         }
     }
     return largest;
+    // Returning the Index of largest Element priority in priority queue
 }
 
-//structure of node of K-D Tree
 struct Node
+//structure of node of K-D Tree
 {
     int *point;
     struct Node *left, *right;
 };
 typedef struct Node node;
 
-//creating new node in tree
 node* new_node(int arr[],int k)
+// Creating new node in tree
 {
     node* newnode= (node*)malloc(sizeof(node));
     newnode->point= (int*)malloc(k*sizeof(int));
 
     for (int i = 0; i < k; i++)
     {
-
         *(newnode->point+i)=arr[i];
     }
     newnode->left=NULL;
@@ -73,8 +77,8 @@ node* new_node(int arr[],int k)
     return newnode;
 }   
 
-//inserting a point in tree
 node* insert(node* root, int arr[], int depth_node, int k)
+// Inserting a point in tree
 {
     if (root==NULL)
     {
@@ -92,8 +96,8 @@ node* insert(node* root, int arr[], int depth_node, int k)
     return root;
 }
 
-//searching for a point in the tree
 int search_node(node* root, int arr[], int depth_node, int k)
+//searching for a point in the tree
 {
     if (root == NULL)
     {
@@ -123,8 +127,8 @@ int search_node(node* root, int arr[], int depth_node, int k)
     }   
 }
 
-//function to finding minimum point 
 node *findMin(node* root, int d, int depth, int k)
+// Function to finding minimum point 
 {
     if (root == NULL)
     {
@@ -152,8 +156,8 @@ node *findMin(node* root, int d, int depth, int k)
     return minNode;
 }
 
-//function to delete a node
 node *deleteNode(node* root_node, int arr_point[], int depth_node, int k)
+// Function to delete a node
 {
     if (root_node == NULL)
         return NULL;
@@ -207,8 +211,8 @@ node *deleteNode(node* root_node, int arr_point[], int depth_node, int k)
     return root_node;
 }
 
-//calculating Eucledian distance 
 int distancesqaured(int point1[], int *point2, int k)
+// Calculating Eucledian distance between Two Points
 {
     int distance=0;
     for (int i = 0; i < k; i++)
@@ -218,8 +222,8 @@ int distancesqaured(int point1[], int *point2, int k)
     return distance;
 }
 
-//function to get the closet of the two nodes
 node* closest(node* node2, node* node3, int point1[],  int k)
+// Function to get the closet of the two nodes from the Point
 {
     if (node2 == NULL) 
     {
@@ -232,7 +236,9 @@ node* closest(node* node2, node* node3, int point1[],  int k)
     }
 
     int d1 = distancesqaured(point1, node2->point, k);
+    // Distance 
     int d2 = distancesqaured(point1, node3->point, k);
+    // Distance 
 
     if (d1 < d2)
     {
@@ -338,32 +344,39 @@ void knearestNeighbour(node* root, int point1[], int depth, int k, int x)
     }
 }
 
-//function to print 2-D Tree
-void print_tree_2d(node* current_node, int space, int k)
+void swapping(int index, int x, int k)
 {
-    int count = 10;
-    if (current_node == NULL)
+    int temp[k];
+    int temppriority;
+    for (int i = 0; i < k; i++)
+    {
+        temp[i] = queue[index].arr[i];
+    }
+    temppriority = queue[index].priority;
+    for (int i = 0; i < k; i++)
+    {
+        queue[index].arr[i] = queue[x-1].arr[i];
+    }
+    queue[index].priority=queue[x-1].priority;
+    for (int i = 0; i < k; i++)
+    {
+        queue[x-1].arr[i] = temp[i];
+    }
+    queue[x-1].priority = temppriority;
+}
+
+void sort_queue(int nearest, int k)
+{
+    if (nearest==0)
     {
         return;
     }
-    
-    space += count;
-    print_tree_2d(current_node->right, space, k);
- 
-    printf("\n");
-    for (int i = count; i < space; i++)
-    {
-        printf(" ");
-    }
-        
-    for (int i = 0; i < k-1; i++)
-    {
-        printf("%d ",current_node->point[i]);
-    }
-    printf("%d\n",current_node->point[k-1]);
-    print_tree_2d(current_node->left, space, k);
+    int index;
+    index = max_index(nearest,k);
+    swapping(index,nearest,k);
+    nearest--;
+    sort_queue(nearest,k);
 }
-
 
 int main()
 {
@@ -385,6 +398,13 @@ int main()
     
     node *root = NULL;
     
+    //point1 around which we find x nearest neighbours
+    int point1[k];
+    for (int i = 0; i < k; i++)
+    {
+        fscanf(filePointer,"%d",&point1[i]);
+    }
+
     //array having the points
     int *points[number_points];
     for (int i = 0; i < number_points; i++)
@@ -406,32 +426,27 @@ int main()
     {
         root = insert(root, points[i], 0, k);
     }
-
-    //point1 around which we find x nearest neighbours
-    int point1[k];
-    for (int i = 0; i < k; i++)
-    {
-        fscanf(filePointer,"%d",&point1[i]);
-    }
     
     queue=(node_queue*)malloc(sizeof(node_queue));
     node* temp;
 
-    
     knearestNeighbour(root,point1,0,k,x);
+    int nearest = x;
+    sort_queue(nearest,k);
 
     printf("Results of Application OF KNN Algorithm :\n");
     for (int i = 0; i < x; i++)
     {        
-        printf("{");
+        printf("%d Nearest Point is {",i+1);
         for (int j = 0; j < k-1; j++)
         {           
-            printf("%d,",queue[i].arr[j]);
+            printf("%d-",queue[i].arr[j]);
         }
         for (int j = k-1; j < k; j++)
         {
-            printf("%d}\n",queue[i].arr[j]);
+            printf("%d}",queue[i].arr[j]);
         }
+        printf(" at a Distance: %f\n",sqrt(queue[i].priority));
     }
     printf("\n\n");
 
@@ -439,8 +454,18 @@ int main()
     for (int i = 0; i < x; i++)
     {    
         temp = nearestNeighbour(root,point1,0,k);
-        printf("{%d,%d,%d,%d}\n",temp->point[0],temp->point[1],temp->point[2],temp->point[3]);  
-        root=deleteNode(root,temp->point,0,k);
+        printf("%d Nearest Point is {",i+1);
+        for (int i = 0; i < k-1; i++)
+        {           
+            printf("%d-",temp->point[i]);
+        }
+        for (int i = k-1; i < k; i++)
+        {
+            printf("%d}",temp->point[i]);
+        } 
+        int x = distancesqaured(temp->point,point1,k);
+        printf(" at a Distance: %f\n",sqrt(x));
+        root = deleteNode(root,temp->point,0,k);
     }
     return 0;
 }
