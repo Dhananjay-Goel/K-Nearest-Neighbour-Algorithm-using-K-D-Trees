@@ -15,7 +15,7 @@ For the given input file, the dataset repesent the following-
 The columns are equal to the number of dimensions of the data points
 
 #Output
-The program will give the number of nearest neighbours for the given point
+The program will give the number of nearest neighbours for the given point.
 
 For the given inpiut file:-
 Given the number of dimensions - 4
