@@ -3,7 +3,7 @@ Implementation of K-Nearest-Neighbour Algorithm using K-D Tree and custom build 
 
 To run the program, compile and execute the main.c file
 
-#**Input**
+# Input
 The input is in a text format 
 1st line: Dimensions - K
 2nd line: Number of neighbours to find
