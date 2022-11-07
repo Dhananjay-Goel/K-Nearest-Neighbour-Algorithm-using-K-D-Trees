@@ -4,9 +4,9 @@ Implementation of K-Nearest-Neighbour Algorithm using K-D Tree and custom build 
 To run the program, compile and execute the main.c file
 
 # Input
-The input is taken from input.txt file
-1st line: Dimensions - d
-2nd line: Number of neighbours to find - K
+The input is taken from input.txt file<br>
+1st line: Dimensions - d<br>
+2nd line: Number of neighbours to find - K<br>
 3rd line: Number of input points of d dimension - number_points
 4th line: the data point for which the neighbours are to be found 
 Then the data points are input line by line number_point times
