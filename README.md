@@ -17,8 +17,8 @@ The columns are equal to the number of dimensions of the data points
 # Output
 The program will give the K nearest neighbours for the given point.
 
-For the given input file:-
-Given the number of dimensions - 4
+/For the given input file:-/
+/Given the number of dimensions - 4/
 Number of nearest neighbours to find- 10
 Number of data points given - 10000
 The data point around which neighbours to find - {689 7890 55 909}
