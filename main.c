@@ -11,7 +11,7 @@
 struct Node_Queue 
 // Making a structure which creates priority queue
 {
-    long long int *arr;// Stores the points
+    long long int *arr;// Stores the points in array
     long long int priority;// Stores the distance of point from target point
 };
 typedef struct Node_Queue node_queue ;
